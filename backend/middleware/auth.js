@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import User from "../models/User.js";
+import employee from "../models/employee.js";
 
 export const auth = async (req, res, next) => {
   try {
@@ -10,13 +10,13 @@ export const auth = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.userId);
+    const employee = await Employee.findById(decoded.employeeId);
 
-    if (!user) {
+    if (!employee) {
       return res.status(401).json({ message: "Invalid token" });
     }
 
-    req.user = user;
+    req.employee = employee;
     next();
   } catch (error) {
     console.log(error);

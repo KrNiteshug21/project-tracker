@@ -1,4 +1,4 @@
-import Emplyee from "../models/Emplyee";
+import Employee from "../models/employee.js";
 import bcrypt from "bcryptjs";
 
 export const register = async (req, res) => {
@@ -12,7 +12,7 @@ export const register = async (req, res) => {
 
   const hashPwd = bcrypt.hash(password, 10);
 
-  const emp = Emplyee.create({ name, email, password: hashPwd });
+  const emp = Employee.create({ name, email, password: hashPwd });
 
   return res.status(201).json({ message: "Employee registered successfully" });
 };
@@ -26,7 +26,7 @@ export const login = async (req, res) => {
     return res.status(400).json({ message: "All fields are required" });
   }
 
-  const emp = Emplyee.findOne({ email });
+  const emp = Employee.findOne({ email });
   if (!emp) {
     return res.status(400).json({ message: "Invalid email" });
   }

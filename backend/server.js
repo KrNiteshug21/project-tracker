@@ -1,6 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
+import authRoutes from "./routes/authRoutes.js";
+import projectRoutes from "./routes/projectRoutes.js";
+import taskRoutes from "./routes/taskRoutes.js";
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -11,6 +14,10 @@ app.use(express.json());
 
 // connnect to database
 connectDB();
+
+app.use("/auth", authRoutes);
+app.use("/projects", projectRoutes);
+app.use("/tasks", taskRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
