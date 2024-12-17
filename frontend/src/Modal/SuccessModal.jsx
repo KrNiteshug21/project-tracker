@@ -1,4 +1,3 @@
-import ButtonAnimation from "@/Anim/ButtonAnimation";
 import React from "react";
 
 const SuccessModal = ({ modalObj, clickFunction }) => {
@@ -10,12 +9,13 @@ const SuccessModal = ({ modalObj, clickFunction }) => {
             {modalObj.header}
           </h2>
           <p className="text-center text-lg text-slate-600">{modalObj.msg}</p>
-          <ButtonAnimation
+          <button
             type="button"
-            text={"Ok"}
-            clickFunction={clickFunction}
+            onClick={clickFunction}
             className="text-right bg-blue-600 hover:bg-blue-900 mt-4 px-4 py-2 rounded-lg text-white"
-          />
+          >
+            Ok
+          </button>
         </div>
       </div>
     </section>

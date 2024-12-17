@@ -1,7 +1,9 @@
-const SectionWrapper = ({ children }) => {
+const SectionWrapper = ({ children, className = "" }) => {
   return (
-    <section className="items-center grid scroll-m-6 mx-auto px-4 max-w-screen-xl min-h-screen text-primary dark:text-dark-text">
-      {children}
+    <section className={` min-h-screen py-8 ${className}`}>
+      <div className="mx-auto px-4 max-w-screen-xl text-justify text-primary">
+        {children}
+      </div>
     </section>
   );
 };

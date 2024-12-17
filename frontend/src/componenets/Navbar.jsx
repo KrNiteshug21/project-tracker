@@ -12,6 +12,7 @@ const navObj = [
 
 const NavItems = ({ item }) => {
   const [hoverArrow, setHoverArrow] = useState(false);
+
   return (
     <Link
       className="flex items-center gap-4 hover:underline"
@@ -26,6 +27,13 @@ const NavItems = ({ item }) => {
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const token = localStorage.getItem("token");
+
+  const handleSignout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.reload();
+  };
 
   return (
     <nav className="top-4 sticky px-4">
@@ -56,6 +64,15 @@ const Navbar = () => {
                   {navObj.map((item) => (
                     <NavItems key={item.name} item={item} />
                   ))}
+                  {token ? (
+                    <button onClick={handleSignout} className="hover:underline">
+                      Signout
+                    </button>
+                  ) : (
+                    <Link to="/login" className="hover:underline">
+                      Login
+                    </Link>
+                  )}
                 </div>
               </div>
             )}
@@ -67,6 +84,15 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
+            {token ? (
+              <button onClick={handleSignout} className="hover:underline">
+                Signout
+              </button>
+            ) : (
+              <Link to="/login" className="hover:underline">
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </div>
