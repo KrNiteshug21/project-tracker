@@ -10,9 +10,9 @@ const router = express.Router();
 
 router.use(auth);
 
-router.use("/", createProject);
-router.use("/", getAllProjects);
-router.use("/:id", getProjectById);
-router.use("/:id", deleteProject);
+router.post("/", createProject);
+router.get("/", getAllProjects);
+router.get("/:id", getProjectById);
+router.delete("/:id", deleteProject);
 
 export default router;

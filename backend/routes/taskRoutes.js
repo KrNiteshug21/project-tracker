@@ -6,15 +6,17 @@ import {
   createTask,
   deleteTask,
   updateTask,
+  getTaskByEmployee,
 } from "../controllers/taskController.js";
 const router = express.Router();
 
 router.use(auth);
 
-router.use("/", createTask);
-router.use("/", getAllTasks);
-router.use("/:id", getTaskById);
-router.use("/:id", updateTask);
-router.use("/:id", deleteTask);
+router.post("/", createTask);
+router.get("/", getAllTasks);
+router.get("/employee/:id", getTaskByEmployee);
+router.get("/:id", getTaskById);
+router.put("/:id", updateTask);
+router.delete("/:id", deleteTask);
 
 export default router;
