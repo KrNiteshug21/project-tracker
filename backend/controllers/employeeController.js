@@ -27,6 +27,7 @@ export const register = async (req, res) => {
       .status(201)
       .json({ message: "User created successfully", token });
   } catch (error) {
+    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -55,10 +56,13 @@ export const login = async (req, res) => {
       expiresIn: "24h",
     });
 
+    const { password: pwd, ...rest } = emp._doc;
+
     return res
       .status(200)
-      .json({ message: "Employee logged in successfully", token });
+      .json({ message: "Employee logged in successfully", token, emp: rest });
   } catch (error) {
+    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -68,6 +72,7 @@ export const getAllEmployees = async (req, res) => {
     const employees = await Employee.find();
     return res.status(200).json(employees);
   } catch (error) {
+    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };

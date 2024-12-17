@@ -4,10 +4,17 @@ import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import projectRoutes from "./routes/projectRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
+import cors from "cors";
 const app = express();
 const port = process.env.PORT || 3000;
 
 dotenv.config();
+
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+  })
+);
 
 // middleware to parse json
 app.use(express.json());

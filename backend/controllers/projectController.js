@@ -11,6 +11,7 @@ export const getProjectById = async (req, res) => {
 
     return res.status(200).json(project);
   } catch (error) {
+    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -20,6 +21,7 @@ export const getAllProjects = async (req, res) => {
     const projects = await Project.find();
     return res.status(200).json(projects);
   } catch (error) {
+    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -44,6 +46,7 @@ export const createProject = async (req, res) => {
 
     return res.status(201).json(project);
   } catch (error) {
+    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -63,6 +66,7 @@ export const deleteProject = async (req, res) => {
       .status(200)
       .json({ message: `${project.title} deleted successfully` });
   } catch (error) {
+    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
