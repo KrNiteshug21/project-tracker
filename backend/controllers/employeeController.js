@@ -1,71 +1,5 @@
 import Employee from "../models/Employee.js";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-
-export const register = async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
-
-    if (!name || !email || !password) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
-
-    const empExist = await Employee.findOne({ email });
-    if (empExist) {
-      return res.status(400).json({ message: "Employee already exists" });
-    }
-
-    const hashPwd = await bcrypt.hash(password, 10);
-    const emp = await Employee.create({ name, email, password: hashPwd });
-
-    // Generate token
-    const token = jwt.sign({ _id: emp._id }, process.env.JWT_SECRET, {
-      expiresIn: "24h",
-    });
-
-    return res
-      .status(201)
-      .json({ message: "User created successfully", token });
-  } catch (error) {
-    console.log(error.message);
-    return res.status(500).json({ message: error.message });
-  }
-};
-
-export const login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
-
-    const emp = await Employee.findOne({ email });
-    if (!emp) {
-      return res.status(400).json({ message: "Invalid email" });
-    }
-
-    const isMatch = await bcrypt.compare(password, emp.password);
-    if (!isMatch) {
-      return res
-        .status(400)
-        .json({ message: "Email and password did not matched!" });
-    }
-
-    const token = jwt.sign({ _id: emp._id }, process.env.JWT_SECRET, {
-      expiresIn: "24h",
-    });
-
-    const { password: pwd, ...rest } = emp._doc;
-
-    return res
-      .status(200)
-      .json({ message: "Employee logged in successfully", token, emp: rest });
-  } catch (error) {
-    console.log(error.message);
-    return res.status(500).json({ message: error.message });
-  }
-};
+import Project from "../models/Project.js";
 
 export const getAllEmployees = async (req, res) => {
   try {
@@ -74,5 +8,49 @@ export const getAllEmployees = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: error.message });
+  }
+};
+
+export const getEmployeeById = async (req, res) => {
+  try {
+    const { empId } = req.params;
+    const employee = await Employee.findById(empId);
+    if (!employee) {
+      return res.status(400).json({ message: "Employee does not exist" });
+    }
+    return res.status(200).json(employee);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const assignProject = async (req, res) => {
+  try {
+    const empId = req.params.id;
+    const { projectId } = req.body;
+    console.log("empId", req.params.id);
+    console.log("projectId", projectId);
+
+    const project = await Project.findById(projectId);
+    if (!project) {
+      return res.status(400).json({ message: "Project does not exist" });
+    }
+
+    const emp = await Employee.findById(empId);
+    if (!emp) {
+      return res.status(400).json({ message: "Employee does not exist" });
+    }
+
+    emp.assignedProjects.push(project);
+    const data = await emp.save();
+
+    return res.status(200).json({
+      status: "success",
+      message: `Project assigned successfully to ${emp.name}`,
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ status: "failed", message: error.message });
   }
 };

@@ -1,12 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import Homepage from "./componenets/home/Homepage";
 import Employee from "./componenets/Employee";
-import Project from "./componenets/Projects";
+import Project from "./componenets/projects/Projects";
 import Task from "./componenets/Task";
 import Navbar from "./componenets/Navbar";
 import Login from "./componenets/Forms/Login";
 import Signup from "./componenets/Forms/Signup";
 import AuthMiddleware from "./middleware/AuthMiddleware";
+import ProjectPage from "./componenets/projects/ProjectPage";
 
 function App() {
   return (
@@ -27,6 +28,14 @@ function App() {
           element={
             <AuthMiddleware>
               <Project />
+            </AuthMiddleware>
+          }
+        />
+        <Route
+          path="/projects/:id"
+          element={
+            <AuthMiddleware>
+              <ProjectPage />
             </AuthMiddleware>
           }
         />

@@ -37,7 +37,7 @@ const Navbar = () => {
 
   return (
     <nav className="top-4 sticky px-4">
-      <div className="mx-auto sm:max-w-screen-sm md:max-w-screen-md">
+      <div className="mx-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg">
         <div className="flex justify-between items-center border-2 border-primary backdrop-blur-md rounded-full">
           <div className="bg-primary dark:bg-light-background px-6 py-1 rounded-full text-2xl text-white">
             <Link className="" to="/">

@@ -4,15 +4,25 @@ import Project from "../models/Project.js";
 export const getProjectById = async (req, res) => {
   try {
     const projectId = req.params.id;
+    console.log("projectId", projectId);
+
     const project = await Project.findById(projectId);
     if (!project) {
-      return res.status(404).json({ message: "Project not found" });
+      return res
+        .status(404)
+        .json({ status: "failed", message: "Project not found" });
     }
 
-    return res.status(200).json(project);
+    return res
+      .status(200)
+      .json({
+        status: "success",
+        message: "Project fetched Succesfully",
+        project,
+      });
   } catch (error) {
     console.log(error.message);
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ status: "failed", message: error.message });
   }
 };
 
@@ -40,7 +50,6 @@ export const createProject = async (req, res) => {
       description,
       startDate,
       endDate,
-      employees: [],
       tasks: [],
     });
 

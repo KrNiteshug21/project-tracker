@@ -4,6 +4,7 @@ import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import projectRoutes from "./routes/projectRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
+import employeeRoutes from "./routes/employeeRoutes.js";
 import cors from "cors";
 const app = express();
 const port = process.env.PORT || 3000;
@@ -23,6 +24,7 @@ app.use(express.json());
 connectDB();
 
 app.use("/auth", authRoutes);
+app.use("/employee", employeeRoutes);
 app.use("/projects", projectRoutes);
 app.use("/tasks", taskRoutes);
 
