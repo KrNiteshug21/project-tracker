@@ -13,7 +13,7 @@ dotenv.config();
 
 app.use(
   cors({
-    origin: "http://localhost:3001",
+    origin: "http://localhost:3001","https://project-tracker-indol.vercel.app/","https://project-tracker-git-master-nitesh-kumars-projects-b10ac6f0.vercel.app/","https://project-tracker-a2uphogki-nitesh-kumars-projects-b10ac6f0.vercel.app/"
   })
 );
 
