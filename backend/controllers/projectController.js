@@ -5,7 +5,6 @@ import Task from "../models/Task.js";
 export const getProjectById = async (req, res) => {
   try {
     const projectId = req.params.id;
-    console.log("projectId", projectId);
 
     const project = await Project.findById(projectId).populate("tasks");
     if (!project) {
@@ -20,7 +19,6 @@ export const getProjectById = async (req, res) => {
       project,
     });
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ status: "failed", message: error.message });
   }
 };
@@ -30,7 +28,6 @@ export const getAllProjects = async (req, res) => {
     const projects = await Project.find();
     return res.status(200).json(projects);
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -54,7 +51,6 @@ export const createProject = async (req, res) => {
 
     return res.status(201).json(project);
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -63,7 +59,6 @@ export const AddTaskToProject = async (req, res) => {
   try {
     const projectId = req.params.id;
     const taskToAdd = req.body;
-    console.log("taskToAdd", taskToAdd);
 
     const { title, description, score } = taskToAdd;
     if (!title || !description || !score) {
@@ -78,7 +73,6 @@ export const AddTaskToProject = async (req, res) => {
         .status(400)
         .json({ status: "failed", message: "Project not found!" });
     }
-    console.log("project", project);
 
     const task = await Task.create({
       title,
@@ -87,18 +81,15 @@ export const AddTaskToProject = async (req, res) => {
       projectId,
       status: "Pending",
     });
-    console.log("task", task);
 
     project.tasks.push(task);
     const response = await project.save();
-    console.log("response", response);
 
     return res.status(200).json({
       status: "success",
       message: `${task.title} added as task succesfully`,
     });
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ status: "failed", message: error.message });
   }
 };
@@ -118,7 +109,6 @@ export const deleteProject = async (req, res) => {
       .status(200)
       .json({ message: `${project.title} deleted successfully` });
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };

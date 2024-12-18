@@ -4,8 +4,6 @@ import Task from "../models/Task.js";
 export const createTask = async (req, res) => {
   try {
     const body = req.body;
-    console.log("createTask", body);
-
     const { title, description, score, assignee, projectId } = body;
 
     if (!title || !description || !score || !assignee || !projectId) {
@@ -28,7 +26,6 @@ export const createTask = async (req, res) => {
 
     return res.status(201).json(task);
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -43,7 +40,6 @@ export const getTaskById = async (req, res) => {
 
     return res.status(200).json(task);
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -53,7 +49,6 @@ export const getAllTasks = async (req, res) => {
     const tasks = await Task.find();
     return res.status(200).json(tasks);
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -64,7 +59,6 @@ export const getTaskByEmployee = async (req, res) => {
     const tasks = await Task.find({ assignee: employeeId });
     return res.status(200).json(tasks);
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -84,14 +78,11 @@ export const updateTask = async (req, res) => {
 
     task.status = status;
     const data = await task.save();
-    return res
-      .status(200)
-      .json({
-        status: "success",
-        message: `${data.title} updated successfully`,
-      });
+    return res.status(200).json({
+      status: "success",
+      message: `${data.title} updated successfully`,
+    });
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ status: "failed", message: error.message });
   }
 };
@@ -109,7 +100,6 @@ export const deleteTask = async (req, res) => {
       .status(200)
       .json({ message: `${task.title} deleted successfully` });
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
