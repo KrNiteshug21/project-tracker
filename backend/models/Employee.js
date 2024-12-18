@@ -14,6 +14,10 @@ const employeeSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    scores: {
+      type: Number,
+      default: 0,
+    },
     role: {
       type: String,
       enum: ["employee", "admin"],

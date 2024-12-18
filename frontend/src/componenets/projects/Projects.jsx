@@ -42,7 +42,7 @@ const Projects = () => {
     fetchProjects();
   }, []);
 
-  const acceptProject = async (projectId) => {
+  const acceptProject = async (project) => {
     try {
       const token = localStorage.getItem("token");
       const options = {
@@ -51,11 +51,12 @@ const Projects = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ projectId }),
+        body: JSON.stringify(project),
       };
       const user = JSON.parse(localStorage.getItem("user"));
+      console.log("userId", user._id);
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/employee/${user._id}`,
+        `${process.env.REACT_APP_API_URL}/employee/${user._id}/assign`,
         options
       );
 
@@ -114,7 +115,7 @@ const Projects = () => {
                     {project.description}
                   </p>
                   <button
-                    onClick={() => acceptProject(project._id)}
+                    onClick={() => acceptProject(project)}
                     className="group-hover:bg-white group-hover:text-black bg-primary mt-2 px-4 py-2 rounded-md text-white"
                   >
                     Accept Project

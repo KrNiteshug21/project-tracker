@@ -7,7 +7,7 @@ import { FaArrowRight } from "react-icons/fa";
 const navObj = [
   { name: "Employee", link: "/employee" },
   { name: "Projects", link: "/projects" },
-  { name: "Task", link: "/task" },
+  // { name: "Task", link: "/task" },
 ];
 
 const NavItems = ({ item }) => {

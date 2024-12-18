@@ -77,17 +77,22 @@ export const updateTask = async (req, res) => {
 
     const task = await Task.findById(taskId);
     if (!task) {
-      return res.status(404).json({ message: "Task not found" });
+      return res
+        .status(404)
+        .json({ status: "failed", message: "Task not found" });
     }
 
     task.status = status;
     const data = await task.save();
     return res
       .status(200)
-      .json({ message: `${data.title} updated successfully` });
+      .json({
+        status: "success",
+        message: `${data.title} updated successfully`,
+      });
   } catch (error) {
     console.log(error.message);
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ status: "failed", message: error.message });
   }
 };
 

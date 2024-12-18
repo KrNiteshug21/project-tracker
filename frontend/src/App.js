@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Homepage from "./componenets/home/Homepage";
-import Employee from "./componenets/Employee";
+import Employee from "./componenets/employee/Employee";
 import Project from "./componenets/projects/Projects";
 import Task from "./componenets/Task";
 import Navbar from "./componenets/Navbar";

@@ -45,7 +45,7 @@ const Login = () => {
           trigger: true,
         });
         localStorage.setItem("token", response.token);
-        localStorage.setItem("user", JSON.stringify(response.emp._id));
+        localStorage.setItem("user", JSON.stringify(response.emp));
         setTimeout(navigate("/"), 1000);
         window.location.reload();
       } else {

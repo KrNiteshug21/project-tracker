@@ -15,3 +15,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.scrollbarStyle::-webkit-scrollbar {
+  height: 0.5rem;
+}
+
+.scrollbarStyle::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background-color: #526d82;
+}

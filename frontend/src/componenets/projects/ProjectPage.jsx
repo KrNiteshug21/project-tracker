@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SectionWrapper from "../../wrapper/SectionWrapper";
 import SuccessModal from "../../Modal/SuccessModal";
+import AddTask from "../../Modal/AddTask";
+import TaskComp from "./TaskComp";
 
 const initModalObj = {
   header: "",
@@ -14,6 +16,7 @@ const ProjectPage = () => {
   const [modalObj, setModalObj] = useState(initModalObj);
   const [project, setProject] = useState({});
   const [loading, setLoading] = useState(true);
+  const [openTaskForm, setOpenTaskForm] = useState(false);
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -32,7 +35,7 @@ const ProjectPage = () => {
         );
 
         const data = await response.json();
-        console.log("data", data.project);
+        console.log("projectData", data.project);
         setProject(data.project);
         setLoading(false);
       } catch (error) {
@@ -53,6 +56,7 @@ const ProjectPage = () => {
           clickFunction={() => setModalObj(initModalObj)}
         />
       )}
+      {openTaskForm && <AddTask id={id} setOpenTaskForm={setOpenTaskForm} />}
       <SectionWrapper className="justify-center grid">
         <div>
           <h1 className="mb-8 font-bold text-4xl text-center">Project Page</h1>
@@ -63,21 +67,26 @@ const ProjectPage = () => {
           <p>End date: {project.endDate}</p>
 
           {project?.tasks?.length > 0 ? (
-            <div>
-              <h2 className="font-semibold text-2xl">Tasks</h2>
-              <ul>
+            <>
+              <h2 className="my-6 font-semibold text-2xl">Tasks</h2>
+              <div className="flex gap-4 scroll-mt-4 scrollbar-thumb-primary px-2 scrollbar-track-rounded-full overflow-x-scroll scrollbar-corner-transparent scrollbar-thin scrollbar-track-gray-100">
                 {project.tasks.map((task) => (
-                  <li key={task._id}>{task.title}</li>
+                  <TaskComp key={task._id} task={task} />
                 ))}
-              </ul>
-            </div>
+              </div>
+            </>
           ) : (
             <p>No tasks found</p>
           )}
 
-          <button className="bg-primary mt-4 px-4 py-2 rounded-md text-white">
-            Add Task
-          </button>
+          {JSON.parse(localStorage.getItem("user")).role === "admin" && (
+            <button
+              onClick={() => setOpenTaskForm(true)}
+              className="bg-primary mt-4 px-4 py-2 rounded-md text-white"
+            >
+              Add Task
+            </button>
+          )}
         </div>
       </SectionWrapper>
     </>
