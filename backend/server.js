@@ -11,11 +11,7 @@ const port = process.env.PORT || 3000;
 
 dotenv.config();
 
-app.use(
-  cors({
-    origin: "http://localhost:3001","https://project-tracker-indol.vercel.app/","https://project-tracker-git-master-nitesh-kumars-projects-b10ac6f0.vercel.app/"
-  })
-);
+app.use(cors());
 
 // middleware to parse json
 app.use(express.json());
