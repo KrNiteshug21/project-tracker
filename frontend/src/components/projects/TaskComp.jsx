@@ -1,5 +1,17 @@
 import { useState } from "react";
 import SuccessModal from "../../Modal/SuccessModal";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
+import { Badge } from "../ui/badge";
+import { CheckCircle2 } from "lucide-react";
+import { Button } from "../ui/button";
+
 const initModalaObj = {
   header: "",
   msg: "",
@@ -89,21 +101,43 @@ const TaskComp = ({ task }) => {
           clickFunction={() => setModalObj(initModalaObj)}
         />
       )}
-      <div
-        className="space-y-2 border-2 border-primary/70 p-4 rounded-lg w-96"
-        style={{ flex: "0 0 auto" }}
-      >
-        <h1 className="font-semibold text-xl">{task.title}</h1>
-        <p className="text-base text-secondary">{task.description}</p>
-        <p className="text-base text-secondary">Task Score: {task.score}</p>
-        <p className="text-base text-secondary">Status: {task.status}</p>
-        <button
-          onClick={handleTaskDone}
-          className="bg-primary px-2 py-1 rounded-md text-white"
-        >
-          Task done
-        </button>
-      </div>
+      <Card className="w-[350px] text-wrap">
+        <CardHeader>
+          <div className="flex justify-between items-start gap-2">
+            <div className="space-y-1">
+              <CardTitle className="text-justify">
+                {task.title.length > 15
+                  ? task.title.slice(0, 15) + "..."
+                  : task.title}
+              </CardTitle>
+              <CardDescription>Score: {task.score}</CardDescription>
+            </div>
+            <Badge
+              variant={task.status === "Completed" ? "default" : "secondary"}
+            >
+              {task.status}
+            </Badge>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <p className="text-justify text-muted-foreground text-sm text-wrap">
+            {task.description.length > 120
+              ? task.description.slice(0, 120) + "..."
+              : task.description}
+          </p>
+        </CardContent>
+        <CardFooter>
+          <Button
+            onClick={handleTaskDone}
+            variant={task.status === "Completed" ? "secondary" : "default"}
+            className="w-full"
+            disabled={task.status === "Completed"}
+          >
+            <CheckCircle2 className="mr-2 w-4 h-4" />
+            {task.status === "Completed" ? "Completed" : "Mark as Complete"}
+          </Button>
+        </CardFooter>
+      </Card>
     </>
   );
 };

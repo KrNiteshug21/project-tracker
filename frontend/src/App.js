@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import Homepage from "./componenets/home/Homepage";
-import Employee from "./componenets/employee/Employee";
-import Project from "./componenets/projects/Projects";
-import Task from "./componenets/Task";
-import Navbar from "./componenets/Navbar";
-import Login from "./componenets/Forms/Login";
-import Signup from "./componenets/Forms/Signup";
+import Homepage from "./components/home/Homepage";
+import Employee from "./components/employee/Employee";
+import Project from "./components/projects/Projects";
+import Task from "./components/Task";
+import Navbar from "./components/Navbar";
+import Login from "./components/Forms/Login";
+import Signup from "./components/Forms/Signup";
 import AuthMiddleware from "./middleware/AuthMiddleware";
-import ProjectPage from "./componenets/projects/ProjectPage";
+import ProjectPage from "./components/projects/ProjectPage";
 
 function App() {
   return (

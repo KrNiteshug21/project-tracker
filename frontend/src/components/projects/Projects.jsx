@@ -2,6 +2,17 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SectionWrapper from "../../wrapper/SectionWrapper";
 import SuccessModal from "../../Modal/SuccessModal";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
+import { Badge } from "../ui/badge";
+import { ArrowRight } from "lucide-react";
+import { Button } from "../ui/button";
 
 const initModalObj = {
   header: "",
@@ -96,31 +107,46 @@ const Projects = () => {
       <SectionWrapper>
         <div>
           <h2 className="font-bold text-4xl text-center">Projects</h2>
-          <div className="flex flex-wrap justify-center gap-4 mt-4">
+          <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-4">
             {loading ? (
               <p>Loading...</p>
             ) : (
               projects.map((project) => (
-                <div
-                  className="border-2 hover:border-white hover:bg-primary p-4 border-black/80 rounded-md w-80 hover:text-white cursor-pointer group"
+                <Card
                   key={project._id}
+                  className="hover:shadow-lg transition-shadow group"
                 >
-                  <Link
-                    className="text-start text-xl hover:underline"
-                    to={`/projects/${project._id}`}
-                  >
-                    <h3>{project.title}</h3>
-                  </Link>
-                  <p className="group-hover:text-white/80 text-lg text-secondary">
-                    {project.description}
-                  </p>
-                  <button
-                    onClick={() => acceptProject(project)}
-                    className="group-hover:bg-white group-hover:text-black bg-primary mt-2 px-4 py-2 rounded-md text-white"
-                  >
-                    Accept Project
-                  </button>
-                </div>
+                  <CardHeader>
+                    <div className="flex items-center gap-2 mb-2">
+                      {/* <div className="bg-primary/10 p-2 rounded-full text-primary">
+                        <project.icon className="w-4 h-4" />
+                      </div> */}
+                      <Badge variant="secondary">Web Development</Badge>
+                    </div>
+                    <CardTitle>
+                      <Link to={`/projects/${project._id}`}>
+                        {project.title}
+                      </Link>
+                    </CardTitle>
+                    <CardDescription className="line-clamp-2">
+                      {project.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline">Open</Badge>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button
+                      onClick={() => acceptProject(project)}
+                      className="group-hover:bg-primary/90 w-full"
+                    >
+                      Accept Project
+                      <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
+                  </CardFooter>
+                </Card>
               ))
             )}
           </div>

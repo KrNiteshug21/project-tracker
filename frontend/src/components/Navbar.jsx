@@ -15,7 +15,7 @@ const NavItems = ({ item }) => {
 
   return (
     <Link
-      className="flex items-center gap-4 hover:underline"
+      className="flex items-center gap-2 text-white hover:underline"
       onMouseEnter={() => setHoverArrow(true)}
       onMouseLeave={() => setHoverArrow(false)}
       to={item.link}
@@ -65,11 +65,14 @@ const Navbar = () => {
                     <NavItems key={item.name} item={item} />
                   ))}
                   {token ? (
-                    <button onClick={handleSignout} className="hover:underline">
+                    <button
+                      onClick={handleSignout}
+                      className="text-white hover:underline"
+                    >
                       Signout
                     </button>
                   ) : (
-                    <Link to="/login" className="hover:underline">
+                    <Link to="/login" className="text-white hover:underline">
                       Login
                     </Link>
                   )}
@@ -80,16 +83,23 @@ const Navbar = () => {
 
           <div className="sm:flex sm:items-center sm:gap-4 hidden px-4 text-lg">
             {navObj.map((item) => (
-              <Link className="hover:underline" key={item.name} to={item.link}>
+              <Link
+                className="text-primary hover:underline"
+                key={item.name}
+                to={item.link}
+              >
                 {item.name}
               </Link>
             ))}
             {token ? (
-              <button onClick={handleSignout} className="hover:underline">
+              <button
+                onClick={handleSignout}
+                className="text-primary hover:underline"
+              >
                 Signout
               </button>
             ) : (
-              <Link to="/login" className="hover:underline">
+              <Link to="/login" className="text-primary hover:underline">
                 Login
               </Link>
             )}
