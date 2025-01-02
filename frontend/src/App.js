@@ -11,7 +11,7 @@ import ProjectPage from "./components/projects/ProjectPage";
 
 function App() {
   return (
-    <div className="">
+    <div className=" bg-white text-primary dark:text-white dark:bg-secondary">
       <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />

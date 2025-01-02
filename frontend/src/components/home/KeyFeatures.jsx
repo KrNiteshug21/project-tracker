@@ -32,13 +32,13 @@ const KeyFeatures = () => {
   return (
     <SectionWrapper>
       <div>
-        <h2 className="mb-6 font-semibold text-3xl text-center text-primary">
+        <h2 className="mb-6 font-semibold text-3xl text-center text-primary dark:text-white">
           Key Features
         </h2>
-        <div className="flex flex-wrap lg:flex-nowrap justify-center items-stretch gap-4 mt-4">
+        <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-4">
           {features.map((item) => (
             <div
-              className="space-y-4 border-2 border-gray-400 rounded-lg w-[252px]"
+              className="space-y-4 border-2 border-gray-400 rounded-lg"
               key={item.title}
             >
               <div>

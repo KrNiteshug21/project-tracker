@@ -9,7 +9,7 @@ const AuthMiddleware = ({ children }) => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      navigate(`${process.env.REACT_APP_API_URL}/login`); // Redirect to login page if not logged in
+      navigate(`/`);
     }
   }, [navigate]);
 

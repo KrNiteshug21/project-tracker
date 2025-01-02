@@ -3,6 +3,7 @@ import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import SectionWrapper from "../../wrapper/SectionWrapper";
 import { Link } from "react-router-dom";
 import SuccessModal from "../../Modal/SuccessModal";
+import { Button } from "../ui/button";
 
 const initModelObj = {
   header: "",
@@ -71,10 +72,10 @@ const Signup = () => {
         />
       )}
       <SectionWrapper>
-        <div className="place-items-center grid min-h-screen">
+        <div className="place-items-center grid min-h-[90vh]">
           <form
             onSubmit={handleSubmit}
-            className="space-y-4 border-2 border-primary p-8 rounded-lg w-96"
+            className="space-y-4 border-2 border-primary dark:border-gray-300 p-8 rounded-lg w-96"
           >
             <h1 className="mb-8 font-bold text-4xl text-center">Sign Up</h1>
             <div>
@@ -131,12 +132,9 @@ const Signup = () => {
                 {!showPwd ? <IoIosEyeOff size={20} /> : <IoIosEye size={20} />}
               </div>
             </div>
-            <button
-              className="bg-primary px-4 py-2 rounded-md text-white"
-              type="submit"
-            >
+            <Button className="font-semibold text-lg" type="submit">
               Signup
-            </button>
+            </Button>
 
             <p className="text-center">or</p>
             <p className="text-center">

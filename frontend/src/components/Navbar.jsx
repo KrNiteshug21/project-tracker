@@ -3,6 +3,7 @@ import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 import { FaArrowRight } from "react-icons/fa";
+import ThemeToggle from "./ThemeToggle";
 
 const navObj = [
   { name: "Employee", link: "/employee" },
@@ -38,8 +39,8 @@ const Navbar = () => {
   return (
     <nav className="top-4 sticky px-4">
       <div className="mx-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg">
-        <div className="flex justify-between items-center border-2 border-primary backdrop-blur-md rounded-full">
-          <div className="bg-primary dark:bg-light-background px-6 py-1 rounded-full text-2xl text-white">
+        <div className="flex justify-between items-center border-2 border-primary dark:border-white backdrop-blur-md rounded-full">
+          <div className="bg-primary dark:bg-white px-6 py-1 rounded-full text-2xl text-white dark:text-primary">
             <Link className="" to="/">
               Project-Tracker
             </Link>
@@ -77,32 +78,27 @@ const Navbar = () => {
                     </Link>
                   )}
                 </div>
+                <ThemeToggle />
               </div>
             )}
           </div>
 
-          <div className="sm:flex sm:items-center sm:gap-4 hidden px-4 text-lg">
+          <div className="sm:flex sm:items-center sm:gap-4 hidden px-4 text-lg text-primary dark:text-white">
             {navObj.map((item) => (
-              <Link
-                className="text-primary hover:underline"
-                key={item.name}
-                to={item.link}
-              >
+              <Link className="hover:underline" key={item.name} to={item.link}>
                 {item.name}
               </Link>
             ))}
             {token ? (
-              <button
-                onClick={handleSignout}
-                className="text-primary hover:underline"
-              >
+              <button onClick={handleSignout} className="hover:underline">
                 Signout
               </button>
             ) : (
-              <Link to="/login" className="text-primary hover:underline">
+              <Link to="/login" className="hover:underline">
                 Login
               </Link>
             )}
+            <ThemeToggle />
           </div>
         </div>
       </div>

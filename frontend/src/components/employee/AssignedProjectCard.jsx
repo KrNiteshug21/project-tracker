@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const AssignedProjectCard = ({ project }) => {
   return (
-    <Card>
+    <Card className="hover:shadow-xl">
       <CardHeader>
         <CardTitle>
           <Link to={`/projects/${project._id}`}>{project.title}</Link>
@@ -24,13 +24,13 @@ const AssignedProjectCard = ({ project }) => {
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-muted-foreground" />
               <span className="text-muted-foreground text-sm">
-                Start: {project.startDate}
+                Start: {project.startDate.slice(0, 10)}
               </span>
             </div>
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-muted-foreground" />
               <span className="text-muted-foreground text-sm">
-                End: {project.endDate}
+                End: {project.endDate.slice(0, 10)}
               </span>
             </div>
           </div>

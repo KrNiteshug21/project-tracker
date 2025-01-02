@@ -7,6 +7,7 @@ import TaskComp from "./TaskComp";
 import { Badge } from "../ui/badge";
 import { CalendarDays } from "lucide-react";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { Button } from "../ui/button";
 
 const initModalObj = {
   header: "",
@@ -63,44 +64,52 @@ const ProjectPage = () => {
       <SectionWrapper className="">
         <div>
           <h1 className="mb-8 font-bold text-4xl text-center">Project Page</h1>
-          <div>
-            <div className="flex flex-col gap-4">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h1 className="font-bold text-3xl tracking-tight">
-                    {project.title}
-                  </h1>
-                  <p className="text-muted-foreground">{project.description}</p>
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <div>
+              <div className="flex flex-col gap-4">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h1 className="font-bold text-3xl tracking-tight">
+                      {project.title}
+                    </h1>
+                    <p className="text-muted-foreground">
+                      {project.description}
+                    </p>
+                  </div>
+                  <div>
+                    <Badge variant="default" className="text-sm">
+                      In progress
+                    </Badge>
+                  </div>
                 </div>
-                <div>
-                  <Badge variant="default" className="text-sm">
-                    In progress
-                  </Badge>
-                </div>
-              </div>
 
-              <div className="flex justify-between items-center gap-4 text-muted-foreground text-sm">
-                <div className="flex items-center gap-1">
-                  <CalendarDays className="w-4 h-4" />
-                  <span>
-                    {project.createdAt} - {project.updatedAt}
-                  </span>
-                </div>
-                {/* <div className="flex items-center gap-2">
+                <div className="flex justify-between items-center gap-4 text-muted-foreground text-sm">
+                  <div className="flex items-center gap-1">
+                    <CalendarDays className="w-4 h-4" />
+                    <span>
+                      {project.createdAt.slice(0, 10)} -{" "}
+                      {project.updatedAt.slice(0, 10)}
+                    </span>
+                  </div>
+                  {/* <div className="flex items-center gap-2">
                   <Progress value={progress} className="w-32" />
                   <span>{Math.round(progress)}% Complete</span>
                 </div> */}
-                {JSON.parse(localStorage.getItem("user")).role === "admin" && (
-                  <button
-                    onClick={() => setOpenTaskForm(true)}
-                    className="bg-primary mt-4 px-4 py-2 rounded-md text-white"
-                  >
-                    Add Task
-                  </button>
-                )}
+                  {JSON.parse(localStorage.getItem("user")).role ===
+                    "admin" && (
+                    <Button
+                      onClick={() => setOpenTaskForm(true)}
+                      className="bg-primary mt-4 px-4 py-2 rounded-md text-white"
+                    >
+                      Add Task
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {project?.tasks?.length > 0 ? (
             <>
