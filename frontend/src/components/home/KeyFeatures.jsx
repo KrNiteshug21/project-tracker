@@ -52,7 +52,9 @@ const KeyFeatures = () => {
                 <h2 className="font-semibold text-start text-xl">
                   {item.title}
                 </h2>
-                <p>{item.description}</p>
+                <p className="text-justify text-secondary dark:text-gray-300">
+                  {item.description}
+                </p>
               </div>
             </div>
           ))}

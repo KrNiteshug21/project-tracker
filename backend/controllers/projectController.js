@@ -41,6 +41,11 @@ export const createProject = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
+    const projectExists = await Project.findOne({ title });
+    if (projectExists) {
+      return res.status(400).json({ message: "Project already exists" });
+    }
+
     const project = await Project.create({
       title,
       description,
@@ -72,6 +77,13 @@ export const AddTaskToProject = async (req, res) => {
       return res
         .status(400)
         .json({ status: "failed", message: "Project not found!" });
+    }
+
+    const taskExists = project.tasks.find((task) => task.title === title);
+    if (taskExists) {
+      return res
+        .status(400)
+        .json({ status: "failed", message: "Task already exists!" });
     }
 
     const task = await Task.create({
@@ -108,6 +120,37 @@ export const deleteProject = async (req, res) => {
     return res
       .status(200)
       .json({ message: `${project.title} deleted successfully` });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const createTasks = async (req, res) => {
+  try {
+    const projectId = req.params.id;
+    const tasks = req.body;
+
+    const project = await Project.findById(projectId);
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    tasks.forEach(async (task) => {
+      const taskExists = await Task.findOne({ title: task.title });
+      if (taskExists) {
+        console.log("task already exists");
+        return;
+      } else {
+        const newTask = await Task.create(task);
+        console.log("newTask", newTask);
+        project.tasks.push(newTask);
+        await project.save();
+        return;
+      }
+    });
+
+    const response = await project.save();
+    return res.status(201).json(response);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

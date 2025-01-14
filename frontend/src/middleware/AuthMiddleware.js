@@ -10,6 +10,7 @@ const AuthMiddleware = ({ children }) => {
 
     if (!token) {
       navigate(`/`);
+      window.location.reload();
     }
   }, [navigate]);
 

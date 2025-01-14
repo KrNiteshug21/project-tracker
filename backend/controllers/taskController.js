@@ -11,7 +11,8 @@ export const createTask = async (req, res) => {
     }
 
     const taskExists = await Task.findOne({ title });
-    if (taskExists) {
+    const taskExists2 = await Task.findOne({ projectId });
+    if (taskExists || taskExists2) {
       return res.status(400).json({ message: "Task already exists" });
     }
 

@@ -6,6 +6,7 @@ import {
   createProject,
   deleteProject,
   AddTaskToProject,
+  createTasks,
 } from "../controllers/projectController.js";
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.get("/", getAllProjects);
 router.get("/:id", getProjectById);
 router.put("/:id", AddTaskToProject);
 router.delete("/:id", deleteProject);
+// router.put("/:id", createTasks);
 
 export default router;
